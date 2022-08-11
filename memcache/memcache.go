@@ -355,6 +355,7 @@ func (c *Client) withAddrRw(addr net.Addr, fn func(*bufio.ReadWriter) error) (er
 	retries := 0
 	err = fn(cn.rw)
 	if err == io.EOF { // Bad connection
+		log.Println("connection io.EOF error received")
 		cn.nc.Close()
 		for err != nil && retries < maxRetries {
 			retries++
